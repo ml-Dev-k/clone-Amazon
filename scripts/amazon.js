@@ -31,16 +31,18 @@ products.forEach((product)=>{
             <option value="8">8</option>
             <option value="9">9</option>
             <option value="10">10</option>
-          </select>
+            </select>
         </div>
         
         <button class="add-to-cart-button" data-product-id= "${product.id}">
           add to Cart
         </button>
-      </div>
-  `
-})
-main.innerHTML = productsHTML;
+        </div>
+        `
+      })
+      main.innerHTML = productsHTML;
+      
+      /* add-button-cart interaction*/
 
 document.querySelectorAll('.add-to-cart-button')
   .forEach((addButton)=>{
@@ -60,7 +62,10 @@ document.querySelectorAll('.add-to-cart-button')
           quantity: 1
         })
       }
-      console.clear();
-      console.log(cart);
+      let cartCount = cart.reduce((sum , product)=> sum + product.quantity, 0);
+     
+      document.querySelector('.cart-quantity')
+        .innerHTML = cartCount;
     })
+    
   })

@@ -92,7 +92,7 @@ header{
   justify-content: center;
   align-items: center;
   color:white;
-  font-size: 16px;
+  font-size: 14px;
   box-sizing: border-box;
   font-weight: bold;
   border: 1px solid transparent;
@@ -102,10 +102,10 @@ header{
   width: 50%;
   align-items: end;
 }
-.cart-count{
+.cart-quantity{
   position: absolute;
   top: 7px;
-  right: 44px;
+  right: 43px;
   color: rgb(255, 144, 65);
   font-weight: bold;
 }

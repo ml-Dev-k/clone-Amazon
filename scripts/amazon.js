@@ -20,7 +20,7 @@ products.forEach((product)=>{
           .toFixed(2)}
         </p>
         <div class="cart-count-selector">
-          <select name="cart-count" id="cart-count">
+          <select name="cart-count" id="${product.id}">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -50,16 +50,18 @@ document.querySelectorAll('.add-to-cart-button')
       let ProductExistInCart = false;
 
       const productId =  addButton.dataset.productId;
+      const quantity = Number(document.getElementById(`${productId}`).value) 
+
       cart.forEach((product)=>{
         if (productId === product.productId) {
-          product.quantity += 1
+          product.quantity += quantity
           ProductExistInCart = true;
         }
       })
       if (!ProductExistInCart) {
         cart.push({
           productId: productId,
-          quantity: 1
+          quantity: quantity
         })
       }
       let cartCount = cart.reduce((sum , product)=> sum + product.quantity, 0);

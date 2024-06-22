@@ -1,4 +1,4 @@
-import { cart } from '../data/cart.js';
+import { cart , addProductToCart } from '../data/cart.js';
 import { products } from '../data/products.js';
 
 let productsHTML = '';
@@ -53,43 +53,6 @@ products.forEach((product)=>{
       main.innerHTML = productsHTML;
 
      
-/**
- * adds product to cart
- * 
- * it also updates the count of the items in the cart 
- * 
- * @param {HTMLButtonElement} addBtn 
- */
-
-function addProductToCart(addBtn){
-  let ProductExistInCart = false;
-
-      const productId =  addBtn.dataset.productId;
-      const quantity = Number(document.getElementById(`${productId}`).value) 
-
-      cart.forEach((product)=>{
-        if (product.productId === productId) {
-          product.quantity = quantity
-          ProductExistInCart = true;
-        }
-      })
-      if (!ProductExistInCart) {
-        cart.push({
-          productId: productId,
-          quantity: quantity
-        })
-      }
-
-      //taking each product with quantity = 0 out of the cart
-      const newCart = cart.filter(product=>product.quantity > 0);
-      cart.length = 0;
-      cart.push(...newCart);
-      
-      
-      console.clear();
-      console.log(cart);
-      
-    }
 
 //updating the cart-count 
 
@@ -103,8 +66,11 @@ function updateCartCount(){
 document.querySelectorAll('.add-to-cart-button')
   .forEach((addToCartButton)=>{
     addToCartButton.addEventListener('click',()=>{
-      addProductToCart(addToCartButton);
-      updateCartCount();
 
+      const productId =  addToCartButton.dataset.productId;
+
+      addProductToCart(productId);
+      updateCartCount();
+      
     })
   })

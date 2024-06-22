@@ -1,3 +1,6 @@
+import { cart } from '../data/cart.js';
+import { products } from '../data/products.js';
+
 let productsHTML = '';
 const main = document.querySelector('main');
 
@@ -67,7 +70,9 @@ document.querySelectorAll('.add-to-cart-button')
       }
       let cartCount = cart.reduce((sum , product)=> sum + product.quantity, 0);
 
-      cart = cart.filter(product=>product.quantity > 0)
+      const newCart = cart.filter(product=>product.quantity > 0);
+      cart.length = 0;
+      cart.push(...newCart);
      
       document.querySelector('.cart-quantity')
         .innerHTML = cartCount;

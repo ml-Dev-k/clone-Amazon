@@ -21,6 +21,7 @@ products.forEach((product)=>{
         </p>
         <div class="cart-count-selector">
           <select name="cart-count" id="${product.id}">
+            <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -54,7 +55,7 @@ document.querySelectorAll('.add-to-cart-button')
 
       cart.forEach((product)=>{
         if (productId === product.productId) {
-          product.quantity += quantity
+          product.quantity = quantity
           ProductExistInCart = true;
         }
       })
@@ -65,9 +66,14 @@ document.querySelectorAll('.add-to-cart-button')
         })
       }
       let cartCount = cart.reduce((sum , product)=> sum + product.quantity, 0);
+
+      cart = cart.filter(product=>product.quantity > 0)
      
       document.querySelector('.cart-quantity')
         .innerHTML = cartCount;
+
+        console.clear();
+        console.log(cart);
     })
     
   })

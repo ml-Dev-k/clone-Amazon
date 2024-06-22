@@ -4,6 +4,7 @@ import { products } from '../data/products.js';
 let productsHTML = '';
 const main = document.querySelector('main');
 
+//Loading products in amazon page.
 
 products.forEach((product)=>{
   productsHTML +=
@@ -22,7 +23,11 @@ products.forEach((product)=>{
           $${(product.priceCents/100)
           .toFixed(2)}
         </p>
-        <div class="cart-count-selector">
+
+  ${/* Each select gets a unique ID based on product.id 
+  to know which product will be added to the cart*/ ""}
+  
+  <div class="cart-count-selector">
           <select name="cart-count" id="${product.id}">
             <option value="0">0</option>
             <option value="1">1</option>
@@ -36,8 +41,9 @@ products.forEach((product)=>{
             <option value="9">9</option>
             <option value="10">10</option>
             </select>
-        </div>
-        
+            </div>
+            
+  ${/* Each add-to-cart-button gets a data attribut based on product.id to know which select it refers*/ ""}
         <button class="add-to-cart-button" data-product-id= "${product.id}">
           add to Cart
         </button>
@@ -45,19 +51,24 @@ products.forEach((product)=>{
         `
       })
       main.innerHTML = productsHTML;
-      
-      /* add-button-cart interaction*/
 
-document.querySelectorAll('.add-to-cart-button')
-  .forEach((addButton)=>{
-    addButton.addEventListener('click',()=>{
-      let ProductExistInCart = false;
+     
+/**
+ * adds product to cart
+ * 
+ * it also updates the count of the items in the cart 
+ * 
+ * @param {HTMLButtonElement} addBtn 
+ */
 
-      const productId =  addButton.dataset.productId;
+function addProductToCart(addBtn){
+  let ProductExistInCart = false;
+
+      const productId =  addBtn.dataset.productId;
       const quantity = Number(document.getElementById(`${productId}`).value) 
 
       cart.forEach((product)=>{
-        if (productId === product.productId) {
+        if (product.productId === productId) {
           product.quantity = quantity
           ProductExistInCart = true;
         }
@@ -68,17 +79,32 @@ document.querySelectorAll('.add-to-cart-button')
           quantity: quantity
         })
       }
-      let cartCount = cart.reduce((sum , product)=> sum + product.quantity, 0);
 
+      //taking each product with quantity = 0 out of the cart
       const newCart = cart.filter(product=>product.quantity > 0);
       cart.length = 0;
       cart.push(...newCart);
-     
-      document.querySelector('.cart-quantity')
-        .innerHTML = cartCount;
+      
+      
+      console.clear();
+      console.log(cart);
+      
+    }
 
-        console.clear();
-        console.log(cart);
+//updating the cart-count 
+
+function updateCartCount(){
+  let cartCount = cart.reduce((sum , product)=> sum + product.quantity, 0);
+      
+  document.querySelector('.cart-quantity')
+    .innerHTML = cartCount;
+}
+
+document.querySelectorAll('.add-to-cart-button')
+  .forEach((addToCartButton)=>{
+    addToCartButton.addEventListener('click',()=>{
+      addProductToCart(addToCartButton);
+      updateCartCount();
+
     })
-    
   })

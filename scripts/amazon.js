@@ -23,13 +23,10 @@ products.forEach((product)=>{
           $${(product.priceCents/100)
           .toFixed(2)}
         </p>
-
   ${/* Each select gets a unique ID based on product.id 
   to know which product will be added to the cart*/ ""}
-  
   <div class="cart-count-selector">
           <select name="cart-count" id="${product.id}">
-            <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -41,8 +38,7 @@ products.forEach((product)=>{
             <option value="9">9</option>
             <option value="10">10</option>
             </select>
-            </div>
-            
+            </div>      
   ${/* Each add-to-cart-button gets a data attribut based on product.id to know which select it refers*/ ""}
         <button class="add-to-cart-button" data-product-id= "${product.id}">
           add to Cart

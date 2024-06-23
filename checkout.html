@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--Font-Family-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <!--Styles-->
+  <link rel="stylesheet" href="styles/pages/checkout/checkout.css">
+  <link rel="stylesheet" href="styles/pages/checkout/checkout-header.css">
+  <link rel="stylesheet" href="styles/common/common.css">
+  <title>Checkout</title>
+</head>
+
+<body>
+  <header>
+    <div class="left-side">
+      <img src="/images/icons/amazon-black-logo.png" alt="">
+    </div>
+    <div class="middle-side">
+      <p>checkout (<a href="">13 item</a>)</p>
+    </div>
+    <div class="right-side">
+     <img src="/images/icons/checkout-lock-icon.png" alt="">
+    </div>
+  </header>
+
+  <main>
+    <p class="indication-text">Review your order</p>
+    
+    <div class="items-list">
+      
+      <div class="container">
+        <p class="delivery-date">Delivery date: Tuesday, July 2</p>
+
+        <div class="items-section">
+
+          <div class="item-picture">
+            <img src="/images/products/6-piece-non-stick-baking-set.webp" alt="">
+          </div>
+
+          <div class="item-info">
+            <p>
+              Black and Grey Athletic Coton Socks - 6 Pairs
+            </p>
+            <p class="price">
+              $10.90
+            </p>
+            <div class="quantity-section">
+              Quantity: 3 
+              <div class="update-quantity">
+                <p  style="font-weight: 400;" class="on1 update" href="">Update</p>
+                <div class="off1 update-field">
+                  <input type="number" min="1"> 
+                  <p style="display: inline;" class="save">Save</p>
+                </div>
+              </div>
+              <p class="delete" href="">Delete</p>
+            </div>
+          </div>
+        </div>
+
+          <div class="delivery-section">
+            <p>Choose a delivery option:</p>
+            <div class="option1">
+              <input name="Shipping option"  id="1" type="radio">
+              <label for="1">
+                <span>Tuesday, july1 <br></span>
+                FREE Shipping
+              </label>
+            </div>
+            
+            <div class="option2">
+              <input name="Shipping option" id="2" type="radio">
+              <label for="2">
+                <span>Tuesday, july <br></span>
+                $4.99 Shipping
+              </label>
+            </div>
+            <div class="option3">
+              <input name="Shipping option"  id="3" type="radio">
+              <label for="3">
+                <span>Tuesday, july3 <br></span>
+                $9.99 Shipping
+              </label>
+            </div>
+          </div>
+
+      </div>
+    </div>
+
+
+
+
+    <div class="payment-summary">
+      <div class="payment-summary-title">
+        Order Summary
+      </div>
+      
+      <div class="payment-summary-row">
+        <div>Items (3):</div>
+        <div>$42.75</div>
+      </div>
+
+      <div class="payment-summary-row">
+        <div>Shipping &amp; handling:</div>
+        <div class="underlined">$4.99 <br></div>
+      </div>
+
+      <div class="payment-summary-row subtotal-row">
+        <div>Total before tax:</div>
+        <div>$47.74</div>
+      </div>
+      
+      <div class="underlined payment-summary-row">
+        <div>Estimated tax (10%):</div>
+        <div>$4.77</div>
+      </div>
+      
+      <div class="payment-summary-row">
+        <div>Order total:</div>
+        <div>$52.51</div>
+      </div>
+
+      <div class="payment-summary-row">
+        <div class="paypal-option">
+          <label for="paypal">Use Paypal</label>
+          <input id="paypal" type="checkbox">
+        </div>
+      </div>
+
+
+      <button class="on2 place-order-button">
+        Place your order
+      </button>
+
+      <div class="off2 paypal-section">
+        <button class="paypal-button">
+          <img src="/images/icons/paypal-logo.svg" alt="">
+        </button>
+        <button class="bank-card-button">
+          <img src="/images/icons/bank-card-logo.svg" alt="">
+          <p>carte banquaire</p>
+        </button>
+        <div>
+          <p class="optimizer-info">Optimisé par <img src="/images/icons/paypal-logo.svg" alt=""></p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</body>
+<script src="/scripts/checkout.js"></script>
+</html>

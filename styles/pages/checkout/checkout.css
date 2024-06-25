@@ -77,6 +77,8 @@ the .empty-cart-button element*/
 }
 .item-picture img{
   width: 90%;
+  max-height: 190px;
+  object-fit: contain;
 }
 
 .item-info{

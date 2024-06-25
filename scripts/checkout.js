@@ -1,14 +1,27 @@
-import { cart , removeItemFromCart } from '../data/cart.js';
+import { cart , removeItemFromCart , saveToStorage } from '../data/cart.js';
 import { products } from '../data/products.js';
 
-generateCartItems();
+const paypalSelector = document.querySelector('#paypal');
+console.log(paypalSelector)
+paypalSelector.addEventListener('click', () => {
+  
+  const placeOrderButton = document.querySelector('.place-order-button')
+  const paypalSection = document.querySelector('.paypal-section')
+  
+  if (placeOrderButton.classList.contains('on')) {
+    toggleElementVisibility(placeOrderButton);
+  } else {
+    toggleElementVisibility(paypalSection);
+  }
+})
 
+generateCartItems();
 
 // ▶Functions section 🔽
 
 function generateCartItems() {
   let itemHTML = '';
-
+  
   cart.forEach((cartItem) => {
     const itemID =cartItem.productId;
     let matchingProduct;
@@ -79,21 +92,21 @@ function generateCartItems() {
 
       </div>
     `
-
+    document.querySelector('.number-of-items')
+    .innerHTML = `${cart.length} Item(s) `;
   })
-
+  
   let itemsList = document.querySelector('.items-list');
   itemsList.innerHTML = itemHTML;
-
-// updateButton , saveButton , deleteButton are not button_Elements but P_Elements
+  
+// ▶Events for each button of the Item 🔽
   const updateButtons = document.querySelectorAll('.update');
   updateButtons.forEach((updateButton) => {
     updateButton.addEventListener('click', () => {
       toggleElementVisibility(updateButton);
     })
   })
-
-
+  
   const saveButtons = document.querySelectorAll('.save');
   saveButtons.forEach((saveButton) => {
     saveButton.addEventListener('click', () => {
@@ -106,23 +119,13 @@ function generateCartItems() {
     deleteButton.addEventListener('click', () => {
       const productId = deleteButton.dataset.productId;
       removeItemFromCart(productId);
+      document.querySelector('.number-of-items')
+        .innerHTML = `${cart.length} Item(s)` ;
+      saveToStorage();
       generateCartItems();
     })
   })
-
-  const paypalSelector = document.querySelector('.paypal-option input[type=checkbox]');
-  paypalSelector.addEventListener('click', () => {
-
-    const placeOrderButton = document.querySelector('.place-order-button')
-    const paypalSection = document.querySelector('.paypal-section')
-
-    if (placeOrderButton.classList.contains('on')) {
-      toggleElementVisibility(placeOrderButton);
-    } else {
-      toggleElementVisibility(paypalSection);
-    }
-  })
-
+  
 }
 
 /**

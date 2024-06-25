@@ -1,4 +1,4 @@
-import { cart } from '../data/cart.js';
+import { cart , removeItemFromCart } from '../data/cart.js';
 import { products } from '../data/products.js';
 
 generateCartItems();
@@ -45,7 +45,7 @@ function generateCartItems() {
                   <p data-toggle="${matchingProduct.id}" style="display: inline;" class="save">Save</p>
                 </div>
               </div>
-              <p id="${matchingProduct.id}" class="delete" href="">Delete</p>
+              <p data-product-id="${matchingProduct.id}" class="delete" href="">Delete</p>
             </div>
           </div>
         </div>
@@ -85,7 +85,7 @@ function generateCartItems() {
   let itemsList = document.querySelector('.items-list');
   itemsList.innerHTML = itemHTML;
 
-
+// updateButton , saveButton , deleteButton are not button_Elements but P_Elements
   const updateButtons = document.querySelectorAll('.update');
   updateButtons.forEach((updateButton) => {
     updateButton.addEventListener('click', () => {
@@ -104,10 +104,8 @@ function generateCartItems() {
   const deleteButtons = document.querySelectorAll('.delete');
   deleteButtons.forEach((deleteButton) => {
     deleteButton.addEventListener('click', () => {
-      const BtnID = deleteButton.id;
-      const newCart = cart.filter(item => item.productId !== BtnID);
-      cart.length = 0;
-      cart.push(...newCart);
+      const productId = deleteButton.dataset.productId;
+      removeItemFromCart(productId);
       generateCartItems();
     })
   })

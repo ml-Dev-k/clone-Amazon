@@ -2,12 +2,14 @@ header{
   position: fixed;
   top: 0px;
   width: 85%;
-  background-color: transparent;
+  background-color: white;
+  border-bottom: 1px solid rgba(65, 63, 63, 0.1);
   height: 60px;
   display: flex;
   align-items: center;
   font-weight: 500;
   font-size: 22px;
+  z-index: 100;
 }
 .left-side{
   width: 120px;

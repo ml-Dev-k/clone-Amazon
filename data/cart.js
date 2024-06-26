@@ -39,6 +39,21 @@ export function addProductToCart(productId){
     }
     saveToStorage()
   }  
+
+/**
+ * updates the quantity of the cart item with the same ID
+ * @param {string} itemID 
+ * @param {number} updatedQuantity 
+ */
+export function updateCartItemQuantity(itemID , updatedQuantity){
+    cart.map((item)=>{
+    if (item.productId === itemID) {
+      item.quantity = updatedQuantity 
+      saveToStorage();
+    }
+  })
+}
+  
   
   
 export function saveToStorage(){

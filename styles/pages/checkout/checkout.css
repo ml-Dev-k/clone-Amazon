@@ -100,6 +100,9 @@ the .empty-cart-button element*/
   column-gap: 5px;
   white-space: nowrap;
 }
+.cart-item-quantity{
+  font-weight: 400 !important;
+}
 .save, .update , .delete{
   text-decoration: none;
   color: rgba(36, 36, 211, 0.8);
@@ -109,14 +112,14 @@ the .empty-cart-button element*/
 .delete{
   margin-left: 5px;
 }
-.update-quantity{
+.updating-section{
   font-weight: 400;
   display: flex;
   align-items: center;
   column-gap: 5px;
 }
 
-.update-quantity input{
+.updating-section input{
   padding: 3px;
   width: 40px;
   font-weight: bold;

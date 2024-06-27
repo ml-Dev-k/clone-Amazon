@@ -8,7 +8,7 @@ export let cart = JSON.parse(localStorage.getItem('cart')) || [];
  * @param {string} itemID 
  */
 export function removeItemFromCart(itemID){
-  cart = cart.filter(item => item.productId !== itemID);
+  cart = cart.filter(item => item.id !== itemID);
 }
 
 
@@ -25,7 +25,7 @@ export function addProductToCart(productId){
   const quantity = Number(document.getElementById(`${productId}`).value) 
 
     cart.forEach((cartItem)=>{
-      if (cartItem.productId === productId) {
+      if (cartItem.id === productId) {
         cartItem.quantity = quantity
         ProductExistInCart = true;
 
@@ -33,8 +33,9 @@ export function addProductToCart(productId){
     })
     if (!ProductExistInCart) {
       cart.push({
-        productId: productId,
-        quantity: quantity
+        id: productId,
+        quantity: quantity,
+        deliveryOption: 1
       })
     }
     saveToStorage()
@@ -47,12 +48,26 @@ export function addProductToCart(productId){
  */
 export function updateCartItemQuantity(itemID , updatedQuantity){
     cart.map((item)=>{
-    if (item.productId === itemID) {
+    if (item.id === itemID) {
       item.quantity = updatedQuantity 
       saveToStorage();
     }
   })
 }
+/**
+ * updates the deliveryOption of the cart item with the same ID
+ * @param {string} itemID 
+ * @param {number} updatedOption 
+ */
+export function updateDeliveryOption(itemID , updatedOption){
+    cart.map((item)=>{
+    if (item.id === itemID) {
+      item.deliveryOption = updatedOption 
+      saveToStorage();
+    }
+  })
+}
+
   
   
   

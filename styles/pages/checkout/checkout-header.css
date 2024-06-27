@@ -11,6 +11,11 @@ header{
   font-size: 22px;
   z-index: 100;
 }
+@media (max-width:910px){
+  header{
+    width: 92%;
+  }
+}
 .left-side{
   width: 120px;
   height: 55px;

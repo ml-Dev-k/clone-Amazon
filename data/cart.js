@@ -1,4 +1,9 @@
-export let cart = JSON.parse(localStorage.getItem('cart')) || [];
+export let cart ;
+loadCartFromStorage();
+export function loadCartFromStorage( ){
+  cart = JSON.parse(localStorage.getItem('cart')) || [];
+} 
+  
 
 
 // ▶Functions section 🔽
@@ -38,7 +43,7 @@ export function addProductToCart(productId){
         deliveryOption: 1
       })
     }
-    saveToStorage()
+    saveCartToStorage()
   }  
 
 /**
@@ -50,7 +55,7 @@ export function updateCartItemQuantity(itemID , updatedQuantity){
     cart.map((item)=>{
     if (item.id === itemID) {
       item.quantity = updatedQuantity 
-      saveToStorage();
+      saveCartToStorage();
     }
   })
 }
@@ -63,7 +68,7 @@ export function updateDeliveryOption(itemID , updatedOption){
     cart.map((item)=>{
     if (item.id === itemID) {
       item.deliveryOption = updatedOption 
-      saveToStorage();
+      saveCartToStorage();
     }
   })
 }
@@ -71,7 +76,7 @@ export function updateDeliveryOption(itemID , updatedOption){
   
   
   
-export function saveToStorage(){
+export function saveCartToStorage(){
   localStorage.setItem('cart',JSON.stringify(cart));
 }
 

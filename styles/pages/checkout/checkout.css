@@ -12,6 +12,7 @@ main{
   }
   .cart-item-container{
     padding-top: 10px;
+    width: 624px;
   }
   .details{
     display: block !important;
@@ -24,16 +25,16 @@ main{
     display: none;
   }
   .pay-section{
-    padding-bottom: 150px;
+    padding-bottom: 10px;
     z-index: 2;
   }
   .payment-summary{
-    position: fixed !important;
+    /*position: fixed !important;*/
     background-color: rgb(243, 243, 243);
-    min-width: 604px;
-    max-width: 60.3%;
+    min-width: 624px;
+    /*max-width: 60.3%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%);*/
     z-index: 3;
   }
   
@@ -52,11 +53,11 @@ main{
   }
   .payment-summary{
     top: 60px;
-    position: fixed !important;
+    /*position: fixed !important;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%);*/
     z-index: 10;
-    min-width: 385px;
+    min-width: 395px;
     max-width: 398px;
   }
 }
@@ -75,6 +76,11 @@ main{
   font-size: 28px;
   font-weight: bold;
   z-index: 1;
+}
+@media(max-width:1130px){
+  .empty-cart{
+    top: 520px;
+  }
 }
 .view-products-button{
   background-color: rgb(255, 196, 0);
@@ -208,10 +214,12 @@ the .empty-cart-button element*/
 .option2 input,
 .option3 input{
   width: 18px;
+  cursor: pointer;
 }
 label span{
   color: rgb(22, 143, 22);
   font-weight: 600;
+  cursor: pointer;
 }
 .pay-section{
   flex: 1;

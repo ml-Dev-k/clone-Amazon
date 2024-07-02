@@ -1,14 +1,14 @@
-import { GiveDeliveryDate , updateCheckedOption , updateNumberOfItem , toggleElementVisibility } from "../checkout.js";
+import { /*GiveDeliveryDate*/  updateCheckedOption , updateNumberOfItem , toggleElementVisibility } from "../checkout.js";
 import { renderOrderSummary } from "./renderOrderSummary.js";
-import { cart , removeItemFromCart , saveCartToStorage , 
-updateCartItemQuantity , updateDeliveryOption  } from '../../data/cart.js';
+import { Cart } from '../../data/cart.js';
 import { products } from '../../data/products.js';
 
+const cart = new Cart();
 
 export function renderCartItems() {
   let itemHTML = '';
   
-  cart.forEach((cartItem) => {
+    cart.cartItems.forEach((cartItem) => {
     const itemID =cartItem.id;
     let matchingProduct;
     
@@ -20,7 +20,7 @@ export function renderCartItems() {
   itemHTML +=
     `
       <div class="cart-item-container">
-        <p class="delivery-date">Delivery date: <span data-deliveryDate-id ="${itemID}">${GiveDeliveryDate(7)}</span></p>
+        <p class="delivery-date">Delivery date: <span data-deliveryDate-id ="${itemID}">${/*GiveDeliveryDate(7)*/new Date().toDateString()}</span></p>
 
         <div class="items-section">
 
@@ -57,7 +57,7 @@ export function renderCartItems() {
           <div data-option-id = "${itemID}" class="option1">
             <input checked="checked" name="delivery-option-${itemID}"  id="1-${itemID}" type="radio">
             <label for="1-${itemID}">
-              <span>${GiveDeliveryDate(7)} <br></span>
+  <span>${/*GiveDeliveryDate(7)*/new Date().toDateString()} <br></span>
               FREE Shipping
             </label>
           </div>
@@ -65,7 +65,7 @@ export function renderCartItems() {
           <div data-option-id = "${itemID}" class="option2">
             <input name="delivery-option-${itemID}" id="2-${itemID}" type="radio">
             <label for="2-${itemID}">
-              <span>${GiveDeliveryDate(3)} <br></span>
+  <span>${/*GiveDeliveryDate(3)*/new Date().toDateString()} <br></span>
               $4.99 Shipping
             </label>
           </div>
@@ -73,7 +73,7 @@ export function renderCartItems() {
           <div data-option-id = "${itemID}" class="option3">
             <input name="delivery-option-${itemID}"  id="3-${itemID}" type="radio">
             <label for="3-${itemID}">
-              <span>${GiveDeliveryDate(1)} <br></span>
+  <span>${/*GiveDeliveryDate(1)*/new Date().toDateString()} <br></span>
               $9.99 Shipping
             </label>
           </div>
@@ -89,12 +89,13 @@ export function renderCartItems() {
     itemsList.innerHTML = itemHTML;
   }
 
-  updateCheckedOption();
+  document.addEventListener('DOMContentLoaded',()=>{
+    updateCheckedOption();
+  })
+
   updateNumberOfItem();
-
-
-
-// ▶Events for each button of the Item 🔽
+  
+  // ▶Events for each button of the Item 🔽
   addEventsListenerToCartItems();
 
 }
@@ -115,7 +116,7 @@ function addEventsListenerToCartItems(){
       const updatedQuantitySeletor = 
       document.querySelector(`[data-updated-quantity-ID = "${itemID}"]`);
       const updatedQuantity = Number(updatedQuantitySeletor.value);
-      updateCartItemQuantity(itemID , updatedQuantity)
+      cart.updateCartItemQuantity(itemID , updatedQuantity)
       toggleElementVisibility(saveButton.parentElement);
       renderOrderSummary();
       //Updates quantity in the page
@@ -128,11 +129,11 @@ function addEventsListenerToCartItems(){
   deleteButtons.forEach((deleteButton) => {
     deleteButton.addEventListener('click', () => {
       const itemId = deleteButton.dataset.itemId;
-      removeItemFromCart(itemId);
+      cart.removeItemFromCart(itemId);
       updateNumberOfItem();
-      renderOrderSummary()
-      saveCartToStorage();
       renderCartItems();
+      cart.saveCartToStorage();
+      renderOrderSummary();
 
     })
   })
@@ -147,7 +148,7 @@ function addEventsListenerToCartItems(){
           const deliveryDate = document.querySelector(`label[for="${i}-${optionId}"] span`)
           document.querySelector(`[data-deliveryDate-id="${optionId}"]`)
             .innerHTML = deliveryDate.innerText;
-            updateDeliveryOption(optionId,i);
+            cart.updateDeliveryOption(optionId,i);
             renderOrderSummary();
         }   
       }

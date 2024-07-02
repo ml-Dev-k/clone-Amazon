@@ -1,6 +1,7 @@
-import { cart , addProductToCart } from '../data/cart.js';
+import { Cart} from '../data/cart.js';
 import { products } from '../data/products.js';
 
+const cart = new Cart();
 //Loading products in amazon page.
 generateProducts();
 
@@ -8,7 +9,7 @@ document.querySelectorAll('.add-to-cart-button')
 .forEach((addToCartButton)=>{
   addToCartButton.addEventListener('click',()=>{
     const productId =  addToCartButton.dataset.productId;
-    addProductToCart(productId);
+    cart.addProductToCart(productId);
     updateCartCount();
   })
 })
@@ -33,11 +34,10 @@ function generateProducts(){
             ${product.name}
           </p>
           <p class="rating">
-            <img class="rating-img" src="/images/ratings/rating-${product.rating.stars*10}.png" alt=""> <span>${product.rating.count}</span>
+            <img class="rating-img" src="${product.ratingUrl()}" alt=""> <span>${product.rating.count}</span>
           </p>
           <p class="price">
-            $${(product.priceCents/100)
-            .toFixed(2)}
+            $${product.getPrice()}
           </p>
       <div class="cart-count-selector">
         <select name="cart-count" id="${product.id}">
@@ -52,18 +52,21 @@ function generateProducts(){
           <option value="9">9</option>
           <option value="10">10</option>
           </select>
-      </div>      
+      </div>   
+      ${product.giveExtraProductInfo()}
+
       <button class="add-to-cart-button" data-product-id= "${product.id}">
         add to Cart
       </button>
     </div>
+
     `
     })
     main.innerHTML = productsHTML;
 }
 
 function updateCartCount(){
-  let cartCount = cart.reduce((sum , product)=> sum + product.quantity, 0);
+  let cartCount = cart.cartItems.reduce((sum , product)=> sum + product.quantity, 0);
   document.querySelector('.cart-quantity')
     .innerHTML = cartCount;
 }

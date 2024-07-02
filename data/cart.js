@@ -1,9 +1,62 @@
-export let cart ;
-loadCartFromStorage();
-export function loadCartFromStorage( ){
-  cart = JSON.parse(localStorage.getItem('cart')) || [];
-} 
+export class Cart {
+  cartItems;
+
+  constructor(){
+    this.loadCartFromStorage();
+
+  }
+  loadCartFromStorage( ){
+    return this.cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+  } 
+
+  removeItemFromCart(itemID){
+    this.cartItems = this.cartItems.filter(item => item.id !== itemID);
+  }
+  addProductToCart(productId){
+
+    let ProductExistInCart = false;
+    // Get value in the HtmlSelectElement with the same ID
+    const quantity = Number(document.getElementById(`${productId}`).value) 
   
+      this.cartItems.forEach((cartItem)=>{
+        if (cartItem.id === productId) {
+          cartItem.quantity = quantity
+          ProductExistInCart = true;
+  
+        }
+      })
+      if (!ProductExistInCart) {
+        this.cartItems.push({
+          id: productId,
+          quantity: quantity,
+          deliveryOption: 1
+        })
+      }
+      this.saveCartToStorage()
+    }  
+
+    updateCartItemQuantity(itemID , updatedQuantity){
+      this.cartItems.map((item)=>{
+      if (item.id === itemID) {
+        item.quantity = updatedQuantity 
+        this.saveCartToStorage();
+      }
+    })
+  }
+  updateDeliveryOption(itemID , updatedOption){
+    this.cartItems.map((item)=>{
+    if (item.id === itemID) {
+      item.deliveryOption = updatedOption 
+      this.saveCartToStorage();
+    }
+  })
+ }
+  saveCartToStorage(){
+  localStorage.setItem('cart',JSON.stringify(this.cartItems));
+ }
+}
+
+console.log(new Cart().cartItems)
 
 
 // ▶Functions section 🔽
@@ -12,9 +65,7 @@ export function loadCartFromStorage( ){
  * Removes item with itemID from the cart
  * @param {string} itemID 
  */
-export function removeItemFromCart(itemID){
-  cart = cart.filter(item => item.id !== itemID);
-}
+
 
 
 /**
@@ -23,61 +74,24 @@ export function removeItemFromCart(itemID){
  * @param {string} productId 
  */
 
-export function addProductToCart(productId){
 
-  let ProductExistInCart = false;
-  // Get value in the HtmlSelectElement with the same ID
-  const quantity = Number(document.getElementById(`${productId}`).value) 
-
-    cart.forEach((cartItem)=>{
-      if (cartItem.id === productId) {
-        cartItem.quantity = quantity
-        ProductExistInCart = true;
-
-      }
-    })
-    if (!ProductExistInCart) {
-      cart.push({
-        id: productId,
-        quantity: quantity,
-        deliveryOption: 1
-      })
-    }
-    saveCartToStorage()
-  }  
 
 /**
  * updates the quantity of the cart item with the same ID
  * @param {string} itemID 
  * @param {number} updatedQuantity 
  */
-export function updateCartItemQuantity(itemID , updatedQuantity){
-    cart.map((item)=>{
-    if (item.id === itemID) {
-      item.quantity = updatedQuantity 
-      saveCartToStorage();
-    }
-  })
-}
+
 /**
  * updates the deliveryOption of the cart item with the same ID
  * @param {string} itemID 
  * @param {number} updatedOption 
  */
-export function updateDeliveryOption(itemID , updatedOption){
-    cart.map((item)=>{
-    if (item.id === itemID) {
-      item.deliveryOption = updatedOption 
-      saveCartToStorage();
-    }
-  })
-}
+
 
   
   
   
-export function saveCartToStorage(){
-  localStorage.setItem('cart',JSON.stringify(cart));
-}
+
 
 

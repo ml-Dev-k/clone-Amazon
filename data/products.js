@@ -1,4 +1,66 @@
-export const products = [
+class Product {
+  id;
+  image;
+  name;
+  rating;
+  priceCents;
+  keywords;
+  
+  constructor(productDetails){
+    this.id = productDetails.id;
+    this.image = productDetails.image;
+    this.name = productDetails.name;
+    this.rating = productDetails.rating;
+    this.priceCents = productDetails.priceCents;
+    this.keywords = productDetails.keywords;
+  }
+
+  ratingUrl(){
+    return `/images/ratings/rating-${this.rating.stars*10}.png`;
+  }
+
+  giveExtraProductInfo(){
+      return '';
+  }
+
+  getPrice(){
+    return (this.priceCents/100).toFixed(2);
+  }
+
+} 
+
+class Clothing extends Product{
+  type;
+  sizeChartLink;
+  
+  constructor(productDetails){
+    super(productDetails);
+    this.type = productDetails.type;
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+  giveExtraProductInfo() {
+    return `<a href="${this.sizeChartLink}" target="_blank">Size Chart</a>`;
+  }
+}
+
+class Appliance extends Product{
+  type;
+  instructionslink;
+  warrantlylink;
+  
+  constructor(productDetails){
+    super(productDetails);
+    this.type = productDetails.type;
+    this.instructionslink = productDetails.instructionslink;
+    this.warrantlylinks = productDetails.warrantlylink;
+  }
+  giveExtraProductInfo() {
+    return `<a href="${this.instructionslink}" target="_blank">instructions</a>
+    <a href="${this.warrantlylink}" target="_blank">warrantly</a>`;
+  }
+}
+
+const productsStock = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     image: "images/products/athletic-cotton-socks-6-pairs.jpg",
@@ -58,7 +120,10 @@ export const products = [
       "toaster",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: "appliance",
+    instructionslink: "images/appliance-instructions.png",
+    warrantlylink: "images/appliance-warranty.png"
   },
   {
     id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
@@ -87,7 +152,10 @@ export const products = [
     keywords: [
       "kitchen",
       "cookware"
-    ]
+    ],
+    type: "appliance",
+    instructionslink: "images/appliance-instructions.png",
+    warrantlylink: "images/appliance-warranty.png"
   },
   {
     id: "dd82ca78-a18b-4e2a-9250-31e67412f98d",
@@ -243,7 +311,10 @@ export const products = [
       "water boiler",
       "appliances",
       "kitchen"
-    ]
+    ],
+    type: "appliance",
+    instructionslink: "images/appliance-instructions.png",
+    warrantlylink: "images/appliance-warranty.png"
   },
   {
     id: "6b07d4e7-f540-454e-8a1e-363f25dbae7d",
@@ -548,7 +619,10 @@ export const products = [
       "coffeemakers",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: "appliance",
+    instructionslink: "images/appliance-instructions.png",
+    warrantlylink: "images/appliance-warranty.png"
   },
   {
     id: "02e3a47e-dd68-467e-9f71-8bf6f723fdae",
@@ -608,7 +682,10 @@ export const products = [
       "food blenders",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: "appliance",
+    instructionslink: "images/appliance-instructions.png",
+    warrantlylink: "images/appliance-warranty.png"
   },
   {
     id: "36c64692-677f-4f58-b5ec-0dc2cf109e27",
@@ -657,4 +734,18 @@ export const products = [
       "mens"
     ]
   }
-];
+]
+
+export const products = productsStock.map((product)=>{
+  if (product.type === "clothing") {
+    return new Clothing(product);
+  }else if (product.type === "appliance"){
+    return new Appliance(product);
+  }else{
+    return new Product(product);
+  }
+});
+
+
+console.log(products);
+console.log(productsStock);

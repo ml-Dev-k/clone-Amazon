@@ -1,17 +1,15 @@
-import { renderCartItems } from './checkout/renderCartItems.js';
-import { renderOrderSummary } from './checkout/renderOrderSummary.js';
+import { renderCartItems } from './renderCartItems.js';
+import { renderOrderSummary , addEventListenerToOrderSummary} from './renderOrderSummary.js';
 import { Cart } 
-from '../data/cart.js';
-//import { format, addDays } from 'https://esm.sh/date-fns';
+from '../../data/cart.js';
+import { format, addDays } from 'https://esm.sh/date-fns';
+import '../../data/backend.js';
 
 const cart = new Cart();
 
 renderOrderSummary();
+addEventListenerToOrderSummary();
 renderCartItems();
-
-
-
-
 
 // ▶Functions section 🔽
 
@@ -37,19 +35,17 @@ export function toggleElementVisibility(Element) {
  * @param {number} NumberOfDayToAdd 
  * @returns delivery-date
 */
-/*export function GiveDeliveryDate(NumberOfDayToAdd){
+export function GiveDeliveryDate(NumberOfDayToAdd){
   let date = new Date();
   date = addDays(date , NumberOfDayToAdd)
   const deliveryDate = format(date , "EEEE, MMMM d");
   return deliveryDate;
-}*/
-
+}
 export function updateNumberOfItem(){
-  document.addEventListener('DOMContentLoaded',()=>{
-    const numOfItems = document.querySelectorAll('.number-of-items');
-    numOfItems[1].innerHTML = `Items (${cart.cartItems.length})` 
-    numOfItems[0].innerHTML = `${cart.cartItems.length} Item(s)`;
-  })
+  const updatedCart = cart.loadCartFromStorage()
+  const numOfItems = document.querySelectorAll('.number-of-items');
+  numOfItems[1].innerHTML = `Items (${updatedCart.length})` 
+  numOfItems[0].innerHTML = `${updatedCart.length} Item(s)`;
 }
 
 export function updateCheckedOption(){
@@ -58,5 +54,15 @@ export function updateCheckedOption(){
     document.querySelector(`#${inputID}-${item.id}`).checked = true
   })
 }
+
+
+
+
+
+
+
+
+
+
 
 

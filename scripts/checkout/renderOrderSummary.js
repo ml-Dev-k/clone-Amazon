@@ -1,8 +1,10 @@
 import { deliveryOptions } from '../../data/deliveryOptions.js';
 import { Cart } from '../../data/cart.js';
-import { toggleElementVisibility } from '../checkout.js';
-import { products } from '../../data/products.js';
+import { toggleElementVisibility , updateNumberOfItem } from './checkout.js';
+//import { products } from '../../data/products.js';
+import { loadProducts } from '../../data/backend.js';
 
+const products = await loadProducts();
 const cart = new Cart();
 
 export function renderOrderSummary(){
@@ -57,15 +59,15 @@ export function renderOrderSummary(){
   document.querySelector('.orderTotal')
     .innerHTML = orderTotal;
 
-  addEventListenerToOrderSummary();
+  updateNumberOfItem();
+  
 }
 
-function addEventListenerToOrderSummary(){
-  
+export function addEventListenerToOrderSummary(){
   const viewDetails = document.querySelector('.details')
   viewDetails.addEventListener('click',()=>{
   const paymentSummaryRows = document.querySelectorAll('.payment-summary-row');
-    for (let i = 1; i <= 4; i++) {
+  for (let i = 1; i <= 4; i++) {
       paymentSummaryRows[i].classList.toggle('visible');
     }
     if (viewDetails.innerText === 'show details') {
@@ -75,7 +77,7 @@ function addEventListenerToOrderSummary(){
       viewDetails.innerHTML = 'show details';
       viewDetails.style.color = 'rgb(31, 31, 255)';
     }
-})
+  })
 
   const paypalSelector = document.querySelector('#paypal');
   paypalSelector.addEventListener('click', () => {
@@ -91,10 +93,5 @@ function addEventListenerToOrderSummary(){
   })
 
 }
-
-
-
-
-
 
 

@@ -1,9 +1,8 @@
 export class Cart {
-  cartItems;
+  cartItems = [];
 
   constructor(){
     this.loadCartFromStorage();
-
   }
   loadCartFromStorage( ){
     return this.cartItems = JSON.parse(localStorage.getItem('cart')) || [];
@@ -11,6 +10,7 @@ export class Cart {
 
   removeItemFromCart(itemID){
     this.cartItems = this.cartItems.filter(item => item.id !== itemID);
+    this.saveCartToStorage();
   }
   addProductToCart(productId){
 
@@ -51,9 +51,11 @@ export class Cart {
     }
   })
  }
-  saveCartToStorage(){
+saveCartToStorage(){
   localStorage.setItem('cart',JSON.stringify(this.cartItems));
  }
+
+
 }
 
 console.log(new Cart().cartItems)

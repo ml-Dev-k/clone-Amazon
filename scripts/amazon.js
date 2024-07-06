@@ -1,5 +1,8 @@
 import { Cart} from '../data/cart.js';
-import { products } from '../data/products.js';
+//import { products } from '../data/products.js';
+import { loadProducts } from '../data/backend.js';
+
+const products = await loadProducts()
 
 const cart = new Cart();
 //Loading products in amazon page.

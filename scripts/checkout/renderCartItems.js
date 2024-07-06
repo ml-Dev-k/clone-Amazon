@@ -1,16 +1,23 @@
-import { /*GiveDeliveryDate*/  updateCheckedOption , updateNumberOfItem , toggleElementVisibility } from "../checkout.js";
+import { GiveDeliveryDate , updateCheckedOption , updateNumberOfItem , toggleElementVisibility } from "./checkout.js";
 import { renderOrderSummary } from "./renderOrderSummary.js";
 import { Cart } from '../../data/cart.js';
-import { products } from '../../data/products.js';
+//import { products } from '../../data/products.js';
+import { loadProducts } from "../../data/backend.js";
 
+
+const products = await loadProducts();
+console.log(products)
 const cart = new Cart();
 
 export function renderCartItems() {
+  cart.loadCartFromStorage();
+
   let itemHTML = '';
   
     cart.cartItems.forEach((cartItem) => {
     const itemID =cartItem.id;
     let matchingProduct;
+
     
     products.forEach((product) => {
       if (product.id === itemID ) {
@@ -20,7 +27,7 @@ export function renderCartItems() {
   itemHTML +=
     `
       <div class="cart-item-container">
-        <p class="delivery-date">Delivery date: <span data-deliveryDate-id ="${itemID}">${/*GiveDeliveryDate(7)*/new Date().toDateString()}</span></p>
+        <p class="delivery-date">Delivery date: <span data-deliveryDate-id ="${itemID}">${GiveDeliveryDate(7)}</span></p>
 
         <div class="items-section">
 
@@ -57,7 +64,7 @@ export function renderCartItems() {
           <div data-option-id = "${itemID}" class="option1">
             <input checked="checked" name="delivery-option-${itemID}"  id="1-${itemID}" type="radio">
             <label for="1-${itemID}">
-  <span>${/*GiveDeliveryDate(7)*/new Date().toDateString()} <br></span>
+            <span>${GiveDeliveryDate(7)} <br></span>
               FREE Shipping
             </label>
           </div>
@@ -65,7 +72,7 @@ export function renderCartItems() {
           <div data-option-id = "${itemID}" class="option2">
             <input name="delivery-option-${itemID}" id="2-${itemID}" type="radio">
             <label for="2-${itemID}">
-  <span>${/*GiveDeliveryDate(3)*/new Date().toDateString()} <br></span>
+              <span>${GiveDeliveryDate(3)} <br></span>
               $4.99 Shipping
             </label>
           </div>
@@ -73,7 +80,7 @@ export function renderCartItems() {
           <div data-option-id = "${itemID}" class="option3">
             <input name="delivery-option-${itemID}"  id="3-${itemID}" type="radio">
             <label for="3-${itemID}">
-  <span>${/*GiveDeliveryDate(1)*/new Date().toDateString()} <br></span>
+              <span>${GiveDeliveryDate(1)} <br></span>
               $9.99 Shipping
             </label>
           </div>
@@ -90,17 +97,17 @@ export function renderCartItems() {
   }
 
   document.addEventListener('DOMContentLoaded',()=>{
-    updateCheckedOption();
+    updateNumberOfItem();
   })
-
-  updateNumberOfItem();
+  
+  updateCheckedOption();
   
   // ▶Events for each button of the Item 🔽
   addEventsListenerToCartItems();
-
+  
 }
 
-function addEventsListenerToCartItems(){
+function  addEventsListenerToCartItems(){
   
   const updateButtons = document.querySelectorAll('.update');
   updateButtons.forEach((updateButton) => {
@@ -130,10 +137,8 @@ function addEventsListenerToCartItems(){
     deleteButton.addEventListener('click', () => {
       const itemId = deleteButton.dataset.itemId;
       cart.removeItemFromCart(itemId);
-      updateNumberOfItem();
-      renderCartItems();
-      cart.saveCartToStorage();
       renderOrderSummary();
+      renderCartItems();
 
     })
   })
@@ -142,16 +147,19 @@ function addEventsListenerToCartItems(){
   deliveryOptionButtons.forEach((deliveryOptionButton)=>{
     deliveryOptionButton.addEventListener('click',()=>{
       const optionId = deliveryOptionButton.dataset.optionId;
+      let inputID;
       for (let i = 1; i <= 3; i++){
         const inputRadio = document.getElementById(`${i}-${optionId}`);
         if (inputRadio.checked) {
-          const deliveryDate = document.querySelector(`label[for="${i}-${optionId}"] span`)
-          document.querySelector(`[data-deliveryDate-id="${optionId}"]`)
-            .innerHTML = deliveryDate.innerText;
-            cart.updateDeliveryOption(optionId,i);
-            renderOrderSummary();
+          inputID = i
         }   
       }
+
+      const deliveryDate = document.querySelector(`label[for="${inputID}-${optionId}"] span`)
+      document.querySelector(`[data-deliveryDate-id="${optionId}"]`)
+        .innerHTML = deliveryDate.innerText;
+        cart.updateDeliveryOption(optionId,inputID);
+        renderOrderSummary();
     })
   })
 

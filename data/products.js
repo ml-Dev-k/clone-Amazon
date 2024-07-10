@@ -745,7 +745,3 @@ export const products = productsStock.map((product)=>{
     return new Product(product);
   }
 });
-
-
-console.log(products);
-console.log(productsStock);

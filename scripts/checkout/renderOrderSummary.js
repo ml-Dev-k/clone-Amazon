@@ -3,6 +3,8 @@ import { Cart } from '../../data/cart.js';
 import { toggleElementVisibility , updateNumberOfItem } from './checkout.js';
 //import { products } from '../../data/products.js';
 import { loadProducts } from '../../data/backend.js';
+import { GiveDate } from "./checkout.js";
+import { addOrder } from '../orders.js';
 
 const products = await loadProducts();
 const cart = new Cart();
@@ -21,12 +23,12 @@ export function renderOrderSummary(){
     let shipping;
 
     deliveryOptions.forEach((option)=>{
-      if (item.deliveryOption === option.id) {
+      if (item.deliveryOptionId === option.id) {
         shipping = option.price;
       }
     })
     products.forEach((products)=>{
-      if (products.id === item.id) {
+      if (products.id == item.productId) {
         orderSummary.push({
           quantity: item.quantity,
           shipping: shipping,
@@ -89,6 +91,49 @@ export function addEventListenerToOrderSummary(){
       toggleElementVisibility(placeOrderButton);
     } else {
       toggleElementVisibility(paypalSection);
+    }
+  })
+
+  const placeOrderButton = document.querySelector('.place-order-button')
+  placeOrderButton.addEventListener('click', async ()=>{
+    try{
+      const response = await fetch('https://supersimplebackend.dev/orders' , {
+        method: 'POST',
+        headers: {
+         'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          cart: cart.cartItems
+        })
+      })
+      const order = await response.json();
+      order.orderDate = GiveDate();
+      let matchingProd
+      for (let i = 0; i < order.products.length; i++) {
+        const id = order.products[i].productId;
+        console.log(id);
+        for (let i = 0; i < cart.cartItems.length; i++) {
+          let prod = cart.cartItems[i];
+          console.log(prod)
+          if (id === prod.productId ) {
+            matchingProd = prod;
+            break
+          } 
+        }
+
+        deliveryOptions.forEach((delivOp)=>{
+          if (delivOp.id === matchingProd.deliveryOptionId) {
+            order.products[i].deliveryDate = GiveDate(delivOp.deliveryDays);
+          }
+        })
+      }
+      addOrder(order);
+      window.location.href = './order.html'
+      localStorage.removeItem('cart');
+
+    } catch(error){
+      console.log("Error de chargement de l'API , Ressayez plus tard");
+
     }
   })
 

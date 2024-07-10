@@ -1,4 +1,4 @@
-import { GiveDeliveryDate , updateCheckedOption , updateNumberOfItem , toggleElementVisibility } from "./checkout.js";
+import { GiveDate , updateCheckedOption , updateNumberOfItem , toggleElementVisibility } from "./checkout.js";
 import { renderOrderSummary } from "./renderOrderSummary.js";
 import { Cart } from '../../data/cart.js';
 //import { products } from '../../data/products.js';
@@ -6,7 +6,6 @@ import { loadProducts } from "../../data/backend.js";
 
 
 const products = await loadProducts();
-console.log(products)
 const cart = new Cart();
 
 export function renderCartItems() {
@@ -15,7 +14,7 @@ export function renderCartItems() {
   let itemHTML = '';
   
     cart.cartItems.forEach((cartItem) => {
-    const itemID =cartItem.id;
+    const itemID = cartItem.productId;
     let matchingProduct;
 
     
@@ -27,7 +26,7 @@ export function renderCartItems() {
   itemHTML +=
     `
       <div class="cart-item-container">
-        <p class="delivery-date">Delivery date: <span data-deliveryDate-id ="${itemID}">${GiveDeliveryDate(7)}</span></p>
+        <p class="delivery-date">Delivery date: <span data-deliveryDate-id ="${itemID}">${GiveDate(7)}</span></p>
 
         <div class="items-section">
 
@@ -64,7 +63,7 @@ export function renderCartItems() {
           <div data-option-id = "${itemID}" class="option1">
             <input checked="checked" name="delivery-option-${itemID}"  id="1-${itemID}" type="radio">
             <label for="1-${itemID}">
-            <span>${GiveDeliveryDate(7)} <br></span>
+            <span>${GiveDate(7)} <br></span>
               FREE Shipping
             </label>
           </div>
@@ -72,7 +71,7 @@ export function renderCartItems() {
           <div data-option-id = "${itemID}" class="option2">
             <input name="delivery-option-${itemID}" id="2-${itemID}" type="radio">
             <label for="2-${itemID}">
-              <span>${GiveDeliveryDate(3)} <br></span>
+              <span>${GiveDate(3)} <br></span>
               $4.99 Shipping
             </label>
           </div>
@@ -80,7 +79,7 @@ export function renderCartItems() {
           <div data-option-id = "${itemID}" class="option3">
             <input name="delivery-option-${itemID}"  id="3-${itemID}" type="radio">
             <label for="3-${itemID}">
-              <span>${GiveDeliveryDate(1)} <br></span>
+              <span>${GiveDate(1)} <br></span>
               $9.99 Shipping
             </label>
           </div>

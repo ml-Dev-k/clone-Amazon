@@ -3,7 +3,6 @@ import { renderOrderSummary , addEventListenerToOrderSummary} from './renderOrde
 import { Cart } 
 from '../../data/cart.js';
 import { format, addDays } from 'https://esm.sh/date-fns';
-import '../../data/backend.js';
 
 const cart = new Cart();
 
@@ -35,7 +34,7 @@ export function toggleElementVisibility(Element) {
  * @param {number} NumberOfDayToAdd 
  * @returns delivery-date
 */
-export function GiveDeliveryDate(NumberOfDayToAdd){
+export function GiveDate(NumberOfDayToAdd = 0){
   let date = new Date();
   date = addDays(date , NumberOfDayToAdd)
   const deliveryDate = format(date , "EEEE, MMMM d");
@@ -50,8 +49,8 @@ export function updateNumberOfItem(){
 
 export function updateCheckedOption(){
   cart.cartItems.forEach((item)=>{
-    const inputID = CSS.escape(item.deliveryOption);
-    document.querySelector(`#${inputID}-${item.id}`).checked = true
+    const inputID = CSS.escape(item.deliveryOptionId);
+    document.querySelector(`#${inputID}-${item.productId}`).checked = true
   })
 }
 

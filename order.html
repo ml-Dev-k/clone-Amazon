@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
   <!--Styles-->
+  <link rel="stylesheet" href="/styles/order.css">
   <link rel="stylesheet" href="styles/common/common.css">
   <link rel="stylesheet" href="styles/common/amazon-header.css">
   <title>Orders</title>
@@ -36,64 +37,56 @@
       </a>
   </header>  
 
-  <main>
-    
-    <div class="container">
-      <div class="items-section">
+  <main class="main">
+    <!--<div class="order-section">
 
-        <div class="item-picture">
-          <img src="/images/products/6-piece-non-stick-baking-set.webp" alt="">
+      <div class="container">
+        <div class="order-info">
+          <div>
+            <p class="bold">Order Placed</p>
+            <p>September 13</p>
+          </div>
+          <div>
+            <p class="bold">Total</p>
+            <p>$40.63</p>
+          </div>
+          <div>
+            <p class="bold">Order ID:</p>
+            <p>27cba69d-4c3d-4098-b42d-ac7fa62b7664</p>
+          </div>
         </div>
 
-        <div class="item-info">
-          <p>
-            Black and Grey Athletic Coton Socks - 6 Pairs
-          </p>
-          <p class="price">
-            $10.90
-          </p>
-          <div class="quantity-section">
-            Quantity: 3 
-            <div class="update-quantity">
-              <p  style="font-weight: 400;" class="on1 update" href="">Update</p>
-              <div class="off1 update-field">
-                <input class="updated-quantity" type="number" min="1"> 
-                <p style="display: inline;" class="save">Save</p>
+        <div class="items-section">
+
+          <div class="item-picture">
+            <img src="/images/products/6-piece-non-stick-baking-set.webp" alt="">
+          </div>
+
+          <div class="item-info">
+            <div class="item-details">
+              <p class="bold">
+                Black and Grey Athletic Coton Socks - 6 Pairs
+              </p>
+              <p class="price">
+                Arriving on: September 13
+              </p>
+              <p>Quantity : 9</p>
+              <div class="buy-again-btn">
+                <img src="/images/icons/buy-again.png" alt="">
+                <p>Buy it again</p>
               </div>
+    
             </div>
-            <p class="delete" href="">Delete</p>
+            <div>
+              <button class="track-package">Track package</button>
+            </div>
           </div>
         </div>
+
       </div>
-
-        <div class="delivery-section">
-          <p>Choose a delivery option:</p>
-          <div class="option1">
-            <input name="Shipping option"  id="1" type="radio">
-            <label for="1">
-              <span>Tuesday, july1 <br></span>
-              FREE Shipping
-            </label>
-          </div>
-          
-          <div class="option2">
-            <input name="Shipping option" id="2" type="radio">
-            <label for="2">
-              <span>Tuesday, july <br></span>
-              $4.99 Shipping
-            </label>
-          </div>
-          <div class="option3">
-            <input name="Shipping option"  id="3" type="radio">
-            <label for="3">
-              <span>Tuesday, july3 <br></span>
-              $9.99 Shipping
-            </label>
-          </div>
-        </div>
-
-    </div>
-    </div>
+    </div>-->
+    
   </main>
 </body>
+<script src="/scripts/orders.js" type="module"></script>
 </html>

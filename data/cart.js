@@ -9,7 +9,7 @@ export class Cart {
   } 
 
   removeItemFromCart(itemID){
-    this.cartItems = this.cartItems.filter(item => item.id !== itemID);
+    this.cartItems = this.cartItems.filter(item => item.productId !== itemID);
     this.saveCartToStorage();
   }
   addProductToCart(productId){
@@ -19,7 +19,7 @@ export class Cart {
     const quantity = Number(document.getElementById(`${productId}`).value) 
   
       this.cartItems.forEach((cartItem)=>{
-        if (cartItem.id === productId) {
+        if (cartItem.productId === productId) {
           cartItem.quantity = quantity
           ProductExistInCart = true;
   
@@ -27,9 +27,9 @@ export class Cart {
       })
       if (!ProductExistInCart) {
         this.cartItems.push({
-          id: productId,
+          productId : productId,
           quantity: quantity,
-          deliveryOption: 1
+          deliveryOptionId: '1'
         })
       }
       this.saveCartToStorage()
@@ -37,7 +37,7 @@ export class Cart {
 
     updateCartItemQuantity(itemID , updatedQuantity){
       this.cartItems.map((item)=>{
-      if (item.id === itemID) {
+      if (item.productId === itemID) {
         item.quantity = updatedQuantity 
         this.saveCartToStorage();
       }
@@ -45,15 +45,15 @@ export class Cart {
   }
   updateDeliveryOption(itemID , updatedOption){
     this.cartItems.map((item)=>{
-    if (item.id === itemID) {
-      item.deliveryOption = updatedOption 
+    if (item.productId === itemID) {
+      item.deliveryOptionId = String(updatedOption); 
       this.saveCartToStorage();
     }
   })
  }
-saveCartToStorage(){
-  localStorage.setItem('cart',JSON.stringify(this.cartItems));
- }
+  saveCartToStorage(){
+    localStorage.setItem('cart',JSON.stringify(this.cartItems));
+  }
 
 
 }

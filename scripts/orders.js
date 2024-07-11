@@ -5,13 +5,24 @@ const products = await loadProducts();
 console.log(products)
 
 
-/*const cart = JSON.parse(localStorage.getItem('cart'));
-let cartCount = cart.reduce((sum , product)=> sum + product.quantity, 0);
-if (document.querySelector('.cart-quantity')) {
-  document.querySelector('.cart-quantity').innerHTML = cartCount;
-}*/
+const searchBtn = document.querySelector('.search-button');
+if (searchBtn) {
+  searchBtn.addEventListener('click',()=>{
+    const searchBar = document.querySelector('.search-bar')
+    const key = searchBar.value.trim().toLowerCase()
+    window.location.href = `./amazon.html?search=${key}`;
+  })
+}
+//
+const cart = JSON.parse(localStorage.getItem('cart'));
+if (cart) {
+  let cartCount = cart.reduce((sum , product)=> sum + product.quantity, 0);
+  if (document.querySelector('.cart-quantity')) {
+    document.querySelector('.cart-quantity').innerHTML = cartCount;
+  }
+}
 
-const orders = JSON.parse(localStorage.getItem('orders')) || []
+export const orders = JSON.parse(localStorage.getItem('orders')) || []
 
 export function addOrder(order){
   orders.unshift(order)
@@ -89,7 +100,7 @@ for (let i = 0; i < orders.length; i++) {
 
       </div>
       <div>
-        <button class="track-package">Track package</button>
+        <button data-order-id="${order.id}" data-product-id="${prod.productId}" class="track-package">Track package</button>
       </div>
     </div>
   </div>`
@@ -101,6 +112,19 @@ for (let i = 0; i < orders.length; i++) {
     mainOrder.append(orderSection);
   }
 }
+
+const trackBtns = document.querySelectorAll('.track-package');
+if (trackBtns) {
+  trackBtns.forEach((trackBtn)=>{
+    trackBtn.addEventListener('click', ()=>{
+      const orderId = trackBtn.dataset.orderId;
+      const productId = trackBtn.dataset.productId;
+      window.location.href = `./tracking.html?orderId=${orderId}&productId=${productId}`;
+    })
+  })
+}
+
+
   
 
 

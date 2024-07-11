@@ -1,0 +1,65 @@
+main{
+  width: 90%;
+  max-width: 900px;
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+}
+
+.product-info{
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+  font-size: 18px;
+}
+.date{
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.product-image{
+  width: 140px;
+}
+.product-image img{
+  height: 150px;
+  object-fit: contain;
+}
+.progress-bar{
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+.progress-bar-label{
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0px 10px;
+}
+.bar-line{
+  display: flex;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-top-left-radius:20px;
+  border-bottom-left-radius:20px;
+  border-top-right-radius:20px;
+  border-bottom-right-radius:20px;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+  background-color: rgba(245, 245, 245, 0.7);
+}
+.bar-line div{
+  height: 20px;
+  width: 0;
+  background-color: rgb(128, 129, 126);
+}
+
+.bar-line div:last-child{
+  border-top-right-radius:20px;
+  border-bottom-right-radius:20px;
+  background-color: rgb(74, 77, 74);
+}
+.bar-line div:first-child{
+  border-top-left-radius:20px;
+  border-bottom-left-radius:20px;
+  background-color: rgb(182, 181, 180);
+}

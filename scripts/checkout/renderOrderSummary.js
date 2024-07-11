@@ -96,6 +96,8 @@ export function addEventListenerToOrderSummary(){
 
   const placeOrderButton = document.querySelector('.place-order-button')
   placeOrderButton.addEventListener('click', async ()=>{
+    if (cart.cartItems.length !== 0) {
+      
     try{
       const response = await fetch('https://supersimplebackend.dev/orders' , {
         method: 'POST',
@@ -135,6 +137,8 @@ export function addEventListenerToOrderSummary(){
       console.log("Error de chargement de l'API , Ressayez plus tard");
 
     }
+  }
+
   })
 
 }

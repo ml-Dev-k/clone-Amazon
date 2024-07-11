@@ -22,6 +22,12 @@ main{
     grid-template-columns: repeat(2,1fr);
   }
 }
+.search-result{
+  margin-top: 40px;
+  margin-left: 5px;
+  text-align: center;
+  white-space: nowrap;
+}
 
 .container{
   padding: 50px 27px 30px 27px;
@@ -33,8 +39,8 @@ main{
   border-right: 1px solid rgba(71, 71, 71, 0.3);
 }
 .product-picture{
-  width: 100%;
-  height: 180px;
+  width: 92%;
+  height: 170px;
   margin-bottom: 16px;
 }
 .product-picture img{

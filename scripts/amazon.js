@@ -104,3 +104,4 @@ function updateCartCount(){
     .innerHTML = cartCount;
 }
 
+

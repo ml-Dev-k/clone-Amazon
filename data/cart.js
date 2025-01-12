@@ -4,7 +4,8 @@ export class Cart {
   constructor(){
     this.loadCartFromStorage();
   }
-  loadCartFromStorage( ){
+
+  loadCartFromStorage(){
     return this.cartItems = JSON.parse(localStorage.getItem('cart')) || [];
   } 
 
@@ -12,17 +13,15 @@ export class Cart {
     this.cartItems = this.cartItems.filter(item => item.productId !== itemID);
     this.saveCartToStorage();
   }
-  addProductToCart(productId){
 
+  addProductToCart(productId){
     let ProductExistInCart = false;
     // Get value in the HtmlSelectElement with the same ID
     const quantity = Number(document.getElementById(`${productId}`).value) 
-  
       this.cartItems.forEach((cartItem)=>{
         if (cartItem.productId === productId) {
           cartItem.quantity = quantity
           ProductExistInCart = true;
-  
         }
       })
       if (!ProductExistInCart) {
@@ -60,38 +59,6 @@ export class Cart {
 
 console.log(new Cart().cartItems)
 
-
-// ▶Functions section 🔽
-
-/**
- * Removes item with itemID from the cart
- * @param {string} itemID 
- */
-
-
-
-/**
- * adds product to cart
- * 
- * @param {string} productId 
- */
-
-
-
-/**
- * updates the quantity of the cart item with the same ID
- * @param {string} itemID 
- * @param {number} updatedQuantity 
- */
-
-/**
- * updates the deliveryOption of the cart item with the same ID
- * @param {string} itemID 
- * @param {number} updatedOption 
- */
-
-
-  
   
   
 
